@@ -14,7 +14,9 @@ import com.cqteam.lib.screen.CustomDensity
 class MyApplication: Application() {
     override fun onCreate() {
         super.onCreate()
+        //UI适配初始化
         CustomDensity.init(this,375,667)
+        //常用工具初始化
         UtilsManager.init(this,true)
     }
 }
