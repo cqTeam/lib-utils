@@ -15,6 +15,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:background="@color/colorPrimaryDark"
+        android:visibility="gone"
         android:textColor="#ffffff"/>
 
     <TextView
@@ -27,6 +28,7 @@
         app:layout_constraintTop_toBottomOf="@id/btn"
         android:layout_marginTop="20dp"
         android:background="@color/colorPrimaryDark"
+        android:visibility="gone"
         android:textColor="#ffffff"/>
 
     <TextView
@@ -37,6 +39,67 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:background="@color/colorPrimaryDark"
+        android:visibility="gone"
         android:textColor="#ffffff"/>
 
+    <EditText
+        android:id="@+id/et"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        />
+    <Button
+        android:id="@+id/toast"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/et"
+        android:layout_marginTop="10dp"
+        android:text="Toast"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/spPut"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textSize="12sp"
+        />
+    <Button
+        android:id="@+id/spPut"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/et"
+        android:layout_marginTop="10dp"
+        android:text="SP.PUT"
+        app:layout_constraintLeft_toRightOf="@id/toast"
+        app:layout_constraintRight_toLeftOf="@id/spGet"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textSize="12sp"
+        />
+    <Button
+        android:id="@+id/spGet"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/et"
+        android:layout_marginTop="10dp"
+        android:text="SP.GET"
+        app:layout_constraintLeft_toRightOf="@id/spPut"
+        app:layout_constraintRight_toLeftOf="@id/putNotToast"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textSize="12sp"
+        />
+    <Button
+        android:id="@+id/putNotToast"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/et"
+        android:layout_marginTop="10dp"
+        android:text="NotToast"
+        app:layout_constraintLeft_toRightOf="@id/spGet"
+        app:layout_constraintRight_toRightOf="parent"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textSize="12sp"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

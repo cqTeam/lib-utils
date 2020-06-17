@@ -1,10 +1,10 @@
-package com.cqteam.lib.utils.screen
+package com.cqteam.lib.screen
 
 import android.app.Activity
 import android.app.Application
 import android.content.ComponentCallbacks
 import android.content.res.Configuration
-import android.util.Log
+import com.cqteam.lib.utils.LogUtils
 
 /**
  * Author： 洪亮
@@ -76,7 +76,7 @@ class CustomDensity {
 
         private fun setCustomDensityByWidth(activity: Activity) {
             val appDisplayMetrics = mApplication.resources.displayMetrics
-            Log.e("CustomDensity","系统数据：density = ${appDisplayMetrics.density}，" +
+            LogUtils.e("系统数据：density = ${appDisplayMetrics.density}，" +
                     "scaledDensity = ${appDisplayMetrics.scaledDensity}，" +
                     "densityDpi = ${appDisplayMetrics.densityDpi}")
 
@@ -99,7 +99,7 @@ class CustomDensity {
             val targetDensityDpi = (160 * targetDensity).toInt()
             val targetScaledDensity = targetDensity * (sNonCompatScaledDensity / sNonCompatDensity)
 
-            Log.e("CustomDensity","计算出来的数据：density = $targetDensity，" +
+            LogUtils.e("计算出来的数据：density = $targetDensity，" +
                     "scaledDensity = $targetScaledDensity，" +
                     "densityDpi = $targetDensityDpi")
 
@@ -115,14 +115,14 @@ class CustomDensity {
             mTargetDensity = targetDensity
             mTargetScaledDensity = targetScaledDensity
 
-            Log.e("CustomDensity","计算之后系统的数据：density = ${appDisplayMetrics.density}，" +
+            LogUtils.e("计算之后系统的数据：density = ${appDisplayMetrics.density}，" +
                     "scaledDensity = ${appDisplayMetrics.scaledDensity}，" +
                     "densityDpi = ${appDisplayMetrics.densityDpi}")
         }
 
         private fun setCustomDensityByHeight(activity: Activity) {
             val appDisplayMetrics = mApplication.resources.displayMetrics
-            Log.e("CustomDensity","系统数据：density = ${appDisplayMetrics.density}，" +
+            LogUtils.e("系统数据：density = ${appDisplayMetrics.density}，" +
                     "scaledDensity = ${appDisplayMetrics.scaledDensity}，" +
                     "densityDpi = ${appDisplayMetrics.densityDpi}")
 
@@ -154,7 +154,7 @@ class CustomDensity {
             activityDisplayMetrics.scaledDensity = targetScaledDensity
             activityDisplayMetrics.densityDpi = targetDensityDpi
 
-            Log.e("CustomDensity","计算之后系统的数据：density = ${appDisplayMetrics.density}，" +
+            LogUtils.e("计算之后系统的数据：density = ${appDisplayMetrics.density}，" +
                     "scaledDensity = ${appDisplayMetrics.scaledDensity}，" +
                     "densityDpi = ${appDisplayMetrics.densityDpi}")
         }

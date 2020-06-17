@@ -3,7 +3,7 @@ package com.cqteam.utils
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import com.cqteam.lib.utils.screen.CustomDensity
+import com.cqteam.lib.screen.CustomDensity
 import kotlinx.android.synthetic.main.activity_use_custom_density.*
 
 class UseCustomDensityActivity : BaseActivity() {

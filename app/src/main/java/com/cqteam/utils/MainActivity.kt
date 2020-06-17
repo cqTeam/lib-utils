@@ -2,11 +2,11 @@ package com.cqteam.utils
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import com.cqteam.lib.utils.screen.CustomDensity
-import com.cqteam.lib.utils.screen.ScreenUtils
+import com.cqteam.lib.screen.ScreenUtils
+import com.cqteam.lib.utils.LogUtils
+import com.cqteam.lib.utils.SP
+import com.cqteam.lib.utils.ToastUtils
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
@@ -16,7 +16,7 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         initCustomDensity()
         setContentView(R.layout.activity_main)
-        Log.e("CustomDensity","Activity的数据的数据：density = ${ resources.displayMetrics.density}，" +
+        LogUtils.e("Activity的数据的数据：density = ${ resources.displayMetrics.density}，" +
                 "scaledDensity = ${ resources.displayMetrics.scaledDensity}，" +
                 "densityDpi = ${ resources.displayMetrics.densityDpi}")
         btn.setOnClickListener {
@@ -29,5 +29,25 @@ class MainActivity : BaseActivity() {
         btn1.text = "Activity的数据的数据：density = ${ resources.displayMetrics.density}，" +
                 "scaledDensity = ${ resources.displayMetrics.scaledDensity}，" +
                 "densityDpi = ${ resources.displayMetrics.densityDpi}"
+
+        spGet.setOnClickListener {
+            val string = SP.getString("tag", "spTest", "空")
+            LogUtils.e("Test","SP.GET--->$string")
+        }
+        spPut.setOnClickListener {
+            val str = et.text.toString()
+            SP.put("tag","spTest",str)
+            LogUtils.e("Test","SP.PUT")
+        }
+        putNotToast.setOnClickListener {
+            val str = et.text.toString()
+            ToastUtils.putNotToastStr(str)
+            LogUtils.e("putNotToast")
+        }
+        toast.setOnClickListener {
+            val str = et.text.toString()
+            ToastUtils.toast(str)
+            LogUtils.e("toast")
+        }
     }
 }

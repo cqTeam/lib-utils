@@ -1,7 +1,6 @@
-package com.cqteam.lib.utils.screen
+package com.cqteam.lib.screen
 
 import android.content.Context
-import androidx.core.content.ContextCompat
 
 /**
  * Author： 洪亮

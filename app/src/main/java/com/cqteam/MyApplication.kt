@@ -1,7 +1,8 @@
 package com.cqteam
 
 import android.app.Application
-import com.cqteam.lib.utils.screen.CustomDensity
+import com.cqteam.lib.UtilsManager
+import com.cqteam.lib.screen.CustomDensity
 
 /**
  * Author： 洪亮
@@ -14,5 +15,6 @@ class MyApplication: Application() {
     override fun onCreate() {
         super.onCreate()
         CustomDensity.init(this,375,667)
+        UtilsManager.init(this,true)
     }
 }

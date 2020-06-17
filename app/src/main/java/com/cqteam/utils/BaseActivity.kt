@@ -2,7 +2,7 @@ package com.cqteam.utils
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.cqteam.lib.utils.screen.CustomDensity
+import com.cqteam.lib.screen.CustomDensity
 
 /**
  * Author： 洪亮
@@ -12,7 +12,6 @@ import com.cqteam.lib.utils.screen.CustomDensity
  * 描述：
  */
 abstract class BaseActivity: AppCompatActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         CustomDensity.changeStandard(this,setStandard())
