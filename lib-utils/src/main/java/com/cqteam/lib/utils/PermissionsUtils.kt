@@ -1,6 +1,7 @@
 package com.cqteam.lib.utils
 
 import android.app.Activity
+import android.app.Fragment
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -18,6 +19,7 @@ import java.util.*
  * @Author:         koloces
  * @CreateDate:     2020/6/17 10:31
  */
+@Deprecated("弃用")
 object PermissionsUtils {
     private const val mRequestCode:Int = 10086 //权限请求码
     var showSystemSetting = true

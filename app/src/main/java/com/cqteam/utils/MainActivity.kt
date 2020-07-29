@@ -5,15 +5,27 @@ import android.content.Intent
 import android.os.Bundle
 import com.cqteam.lib.screen.ScreenUtils
 import com.cqteam.lib.utils.LogUtils
+import com.cqteam.lib.utils.PermissionsUtil
 import com.cqteam.lib.utils.SP
 import com.cqteam.lib.utils.ToastUtils
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : BaseActivity() {
+class MainActivity : BaseActivity(),PermissionsUtil.IPermissionsCallback {
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        PermissionsUtil.with(this)
+            .requestCode(1)
+            .permissions(PermissionsUtil.Permission.Storage.READ_EXTERNAL_STORAGE
+                , PermissionsUtil.Permission.Storage.WRITE_EXTERNAL_STORAGE
+                , PermissionsUtil.Permission.Microphone.RECORD_AUDIO
+                , PermissionsUtil.Permission.Phone.READ_PHONE_STATE
+            )
+            .request();
+
+
         initCustomDensity()
         setContentView(R.layout.activity_main)
         LogUtils.e("Activity的数据的数据：density = ${ resources.displayMetrics.density}，" +
@@ -49,5 +61,13 @@ class MainActivity : BaseActivity() {
             ToastUtils.toast(str)
             LogUtils.e("toast")
         }
+    }
+
+    override fun onPermissionsDenied(requestCode: Int, vararg permission: String?) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onPermissionsGranted(requestCode: Int, vararg permission: String?) {
+        TODO("Not yet implemented")
     }
 }
