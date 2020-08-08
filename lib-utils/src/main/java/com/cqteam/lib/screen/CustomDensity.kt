@@ -42,7 +42,7 @@ class CustomDensity {
         private var sNonCompatDensity: Float = 0f
         private var sNonCompatScaledDensity: Float = 0f
 
-        private lateinit var mApplication: Application
+        lateinit var mApplication: Application
 
         /**
          *  初始化，建议在 Application 中完成<br/>
