@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Parcelable
+import com.cqteam.lib.utils.LogUtils
 import java.io.Serializable
 import java.util.*
 import kotlin.system.exitProcess
@@ -14,20 +15,7 @@ import kotlin.system.exitProcess
  * @Author:         koloces
  * @CreateDate:     2020/6/17 15:20
  */
-class ActivityUtils private constructor(){
-    companion object{
-        private var instance : ActivityUtils? = null
-        fun INSTANCE():ActivityUtils{
-            if (instance == null){
-                synchronized(ActivityUtils){
-                    if (instance == null){
-                        instance = ActivityUtils()
-                    }
-                }
-            }
-            return instance!!
-        }
-    }
+object ActivityUtils{
     private val activityStack: Stack<Activity> by lazy { Stack<Activity>() }
 
     fun addActivity(activity: Activity?) {
@@ -59,7 +47,11 @@ class ActivityUtils private constructor(){
      * 移除一个activity
      * @param clz
      */
-    fun finishActivity(clz: Class<*>) {
+    fun finishActivity(clz: Class<*>?) {
+        if (clz == null){
+            LogUtils.e("需要关闭的activity为空")
+            return
+        }
         if (activityStack.size > 0) {
             for (i in activityStack.indices.reversed()) {
                 val activity = activityStack[i]
@@ -75,7 +67,7 @@ class ActivityUtils private constructor(){
      * 移除一堆activity
      * @param clz
      */
-    fun finishActivity(vararg clz: Class<*>?) {
+    fun finishActivitys(vararg clz: Class<*>?) {
         for (aClass in clz) {
             finishActivity(aClass)
         }
@@ -218,6 +210,60 @@ class ActivityUtils private constructor(){
                     }
                     is Serializable -> {
                         intent.putExtra(datas[i].key, value)
+                    }
+                }
+                i++
+            }
+        }catch (e:Exception){
+            e.printStackTrace()
+        } finally {
+            lastActivity.startActivity(intent)
+        }
+    }
+
+    fun toNextActivity(clz: Class<*>?,vararg datas: Pair<String, Any?>){
+        val lastActivity = getLastActivity() ?: return
+        val intent = Intent(lastActivity, clz)
+        try {
+            var i = 0
+            val len = datas.size
+            while (i < len) {
+                when (val value = datas[i].second) {
+                    is Boolean -> {
+                        intent.putExtra(datas[i].first, value)
+                    }
+                    is Byte -> {
+                        intent.putExtra(datas[i].first, value)
+                    }
+                    is Char -> {
+                        intent.putExtra(datas[i].first, value)
+                    }
+                    is Short -> {
+                        intent.putExtra(datas[i].first, value)
+                    }
+                    is Int -> {
+                        intent.putExtra(datas[i].first, value)
+                    }
+                    is Long -> {
+                        intent.putExtra(datas[i].first, value)
+                    }
+                    is Float -> {
+                        intent.putExtra(datas[i].first, value)
+                    }
+                    is Double -> {
+                        intent.putExtra(datas[i].first, value)
+                    }
+                    is String -> {
+                        intent.putExtra(datas[i].first, value)
+                    }
+                    is CharSequence -> {
+                        intent.putExtra(datas[i].first, value)
+                    }
+                    is Parcelable -> {
+                        intent.putExtra(datas[i].first, value)
+                    }
+                    is Serializable -> {
+                        intent.putExtra(datas[i].first, value)
                     }
                 }
                 i++

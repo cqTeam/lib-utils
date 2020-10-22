@@ -6,8 +6,8 @@ import android.os.Bundle
 import com.cqteam.lib.screen.ScreenUtils
 import com.cqteam.lib.utils.LogUtils
 import com.cqteam.lib.utils.PermissionsUtil
-import com.cqteam.lib.utils.SP
 import com.cqteam.lib.utils.ToastUtils
+import com.cqteam.lib.utils.sp.SP
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity(),PermissionsUtil.IPermissionsCallback {
@@ -43,12 +43,12 @@ class MainActivity : BaseActivity(),PermissionsUtil.IPermissionsCallback {
                 "densityDpi = ${ resources.displayMetrics.densityDpi}"
 
         spGet.setOnClickListener {
-            val string = SP.getString("tag", "spTest", "空")
+            val string = SP.getString("spTest", "空")
             LogUtils.e("Test","SP.GET--->$string")
         }
         spPut.setOnClickListener {
             val str = et.text.toString()
-            SP.put("tag","spTest",str)
+            SP.put("spTest",str)
             LogUtils.e("Test","SP.PUT")
         }
         putNotToast.setOnClickListener {

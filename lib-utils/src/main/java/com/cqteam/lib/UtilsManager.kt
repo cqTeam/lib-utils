@@ -2,7 +2,7 @@ package com.cqteam.lib
 
 import android.content.Context
 import com.cqteam.lib.utils.LogUtils
-import com.cqteam.lib.utils.SP
+import com.cqteam.lib.utils.sp.SP
 
 /**
  *
@@ -17,7 +17,7 @@ object UtilsManager {
     fun init(context: Context,isDebug:Boolean){
         this.mContext = context
         this.isDebug = isDebug
-        SP.init()
+        SP.init(context)
         LogUtils.init(isDebug)
     }
 

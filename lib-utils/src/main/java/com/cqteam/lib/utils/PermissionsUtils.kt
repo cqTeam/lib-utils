@@ -15,11 +15,11 @@ import java.util.*
 
 /**
  *
- * @Description:    权限申请工具类
+ * @Description:    权限申请工具类 [PermissionsUtil]
  * @Author:         koloces
  * @CreateDate:     2020/6/17 10:31
  */
-@Deprecated("弃用")
+@Deprecated("弃用 转用@PermissionsUtil")
 object PermissionsUtils {
     private const val mRequestCode:Int = 10086 //权限请求码
     var showSystemSetting = true

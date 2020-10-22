@@ -50,6 +50,8 @@ public class PermissionsUtil {
         private static final List<String> sSensorses = new ArrayList<>(1);
         private static final List<String> sSmses = new ArrayList<>(5);
         private static final List<String> sStorages = new ArrayList<>(2);
+        private static final List<String> sBluetooth = new ArrayList<>(2);
+        private static final List<String> sWifi = new ArrayList<>(2);
 
         static {
             //Calendar
@@ -85,6 +87,14 @@ public class PermissionsUtil {
             //Storage
             sStorages.add(Storage.READ_EXTERNAL_STORAGE);
             sStorages.add(Storage.WRITE_EXTERNAL_STORAGE);
+
+            //bluetooth
+            sBluetooth.add(Bluetootn.BLUETOOTH);
+            sBluetooth.add(Bluetootn.BLUETOOTH_ADMIN);
+
+            //wifi
+            sWifi.add(Wifi.ACCESS_WIFI_STATE);
+            sWifi.add(Wifi.CHANGE_WIFI_STATE);
         }
 
         public static final class Calendar {
@@ -146,6 +156,22 @@ public class PermissionsUtil {
             public static final String READ_EXTERNAL_STORAGE = Manifest.permission.READ_EXTERNAL_STORAGE;
             public static final String WRITE_EXTERNAL_STORAGE = Manifest.permission.WRITE_EXTERNAL_STORAGE;
             private static final String MSG = "存储";
+        }
+
+        public static final class Bluetootn {
+            public static final String BLUETOOTH = Manifest.permission.BLUETOOTH;
+            public static final String BLUETOOTH_ADMIN = Manifest.permission.BLUETOOTH_ADMIN;
+            private static final String MSG = "蓝牙";
+        }
+        public static final class Wifi {
+            public static final String ACCESS_WIFI_STATE = Manifest.permission.ACCESS_WIFI_STATE;
+            public static final String CHANGE_WIFI_STATE = Manifest.permission.CHANGE_WIFI_STATE;
+            private static final String MSG = "WIFI";
+        }
+        public static final class Setting {
+            public static final String ACCESS_WIFI_STATE = Manifest.permission.ACCESS_WIFI_STATE;
+            public static final String CHANGE_WIFI_STATE = Manifest.permission.CHANGE_WIFI_STATE;
+            private static final String MSG = "WIFI";
         }
     }
 
@@ -406,6 +432,11 @@ public class PermissionsUtil {
         boolean grantedStorage = false;
         for (String permission : permissions) {
             if (!grantedCalendar && Permission.sCalendars.contains(permission)) {
+                builder.append(Permission.Bluetootn.MSG);
+                builder.append("、");
+                grantedCalendar = true;
+            }
+            if (!grantedCalendar && Permission.sCalendars.contains(permission)) {
                 builder.append(Permission.Calendar.MSG);
                 builder.append("、");
                 grantedCalendar = true;
@@ -447,6 +478,11 @@ public class PermissionsUtil {
             }
             if (!grantedStorage && Permission.sStorages.contains(permission)) {
                 builder.append(Permission.Storage.MSG);
+                builder.append("、");
+                grantedStorage = true;
+            }
+            if (!grantedStorage && Permission.sWifi.contains(permission)) {
+                builder.append(Permission.Wifi.MSG);
                 builder.append("、");
                 grantedStorage = true;
             }
