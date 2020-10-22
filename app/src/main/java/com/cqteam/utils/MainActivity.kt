@@ -5,12 +5,12 @@ import android.content.Intent
 import android.os.Bundle
 import com.cqteam.lib.screen.ScreenUtils
 import com.cqteam.lib.utils.LogUtils
-import com.cqteam.lib.utils.PermissionsUtil
+import com.cqteam.lib.utils.permission.PermissionsUtil
 import com.cqteam.lib.utils.ToastUtils
 import com.cqteam.lib.utils.sp.SP
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : BaseActivity(),PermissionsUtil.IPermissionsCallback {
+class MainActivity : BaseActivity(), PermissionsUtil.IPermissionsCallback {
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,7 +18,8 @@ class MainActivity : BaseActivity(),PermissionsUtil.IPermissionsCallback {
 
         PermissionsUtil.with(this)
             .requestCode(1)
-            .permissions(PermissionsUtil.Permission.Storage.READ_EXTERNAL_STORAGE
+            .permissions(
+                PermissionsUtil.Permission.Storage.READ_EXTERNAL_STORAGE
                 , PermissionsUtil.Permission.Storage.WRITE_EXTERNAL_STORAGE
                 , PermissionsUtil.Permission.Microphone.RECORD_AUDIO
                 , PermissionsUtil.Permission.Phone.READ_PHONE_STATE

@@ -1,7 +1,6 @@
-package com.cqteam.lib.utils
+package com.cqteam.lib.utils.permission
 
 import android.app.Activity
-import android.app.Fragment
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager

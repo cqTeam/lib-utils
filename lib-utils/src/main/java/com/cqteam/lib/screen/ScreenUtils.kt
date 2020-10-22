@@ -33,10 +33,6 @@ object ScreenUtils{
         return (dp * Resources.getSystem().displayMetrics.density).toInt()
     }
 
-    fun dp2Px(dp: Int): Int {
-        return (dp * CustomDensity.mApplication.resources.displayMetrics.density) as Int
-    }
-
     fun dpToPx(dp: Int, activity: Activity): Int {
         return (dp * activity.resources.displayMetrics.density).toInt()
     }

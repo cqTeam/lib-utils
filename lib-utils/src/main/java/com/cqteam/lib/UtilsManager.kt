@@ -20,12 +20,10 @@ object UtilsManager {
         SP.init(context)
         LogUtils.init(isDebug)
     }
-
     fun getContext() : Context{
         return mContext
     }
     fun isDebug() : Boolean{
         return isDebug
     }
-
 }
