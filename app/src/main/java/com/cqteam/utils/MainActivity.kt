@@ -12,20 +12,23 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity(), PermissionsUtil.IPermissionsCallback {
 
-    @SuppressLint("SetTextI18n")
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
+    private val mPermissions : PermissionsUtil by lazy {
         PermissionsUtil.with(this)
             .requestCode(1)
             .permissions(
-                PermissionsUtil.Permission.Storage.READ_EXTERNAL_STORAGE
-                , PermissionsUtil.Permission.Storage.WRITE_EXTERNAL_STORAGE
-                , PermissionsUtil.Permission.Microphone.RECORD_AUDIO
-                , PermissionsUtil.Permission.Phone.READ_PHONE_STATE
+                PermissionsUtil.Permission.Storage.READ_EXTERNAL_STORAGE,
+                PermissionsUtil.Permission.Storage.WRITE_EXTERNAL_STORAGE,
+                PermissionsUtil.Permission.Microphone.RECORD_AUDIO,
+                PermissionsUtil.Permission.Phone.READ_PHONE_STATE,
+                PermissionsUtil.Permission.Wifi.ACCESS_WIFI_STATE,
+                PermissionsUtil.Permission.Wifi.CHANGE_WIFI_STATE,
+                PermissionsUtil.Permission.Location.ACCESS_COARSE_LOCATION,
+                PermissionsUtil.Permission.Location.ACCESS_FINE_LOCATION
             )
-            .request();
-
+    }
+    @SuppressLint("SetTextI18n")
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
         initCustomDensity()
         setContentView(R.layout.activity_main)
@@ -62,13 +65,29 @@ class MainActivity : BaseActivity(), PermissionsUtil.IPermissionsCallback {
             ToastUtils.toast(str)
             LogUtils.e("toast")
         }
+        mPermissions.request()
+    }
+
+    override fun onResume() {
+        super.onResume()
     }
 
     override fun onPermissionsDenied(requestCode: Int, vararg permission: String?) {
-        TODO("Not yet implemented")
+        ToastUtils.toast("未通过")
+        LogUtils.e("未通过")
     }
 
     override fun onPermissionsGranted(requestCode: Int, vararg permission: String?) {
-        TODO("Not yet implemented")
+        ToastUtils.toast("通过")
+        LogUtils.e("通过")
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        mPermissions.onRequestPermissionsResult(requestCode,permissions,grantResults)
     }
 }

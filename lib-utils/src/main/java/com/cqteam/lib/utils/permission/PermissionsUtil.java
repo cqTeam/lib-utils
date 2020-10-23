@@ -257,16 +257,18 @@ public class PermissionsUtil {
     public void request(Object object, int requestCode, String... permissions) {
         if (needRequest() && notGrantedAllPermissions(getActivity(object), permissions)) {
             List<String> unGrantedPermissionsList = createUnGrantedPermissionsList(object, permissions);
-            PLog.d("request---" + "requestCode : " + requestCode + "---unGrantedPermissionsList : " + unGrantedPermissionsList);
+            LogUtils.INSTANCE.e("request---" + "requestCode : " + requestCode + "---unGrantedPermissionsList : " + unGrantedPermissionsList);
             if (unGrantedPermissionsList.size() > 0) {
+                LogUtils.INSTANCE.e("request--->大于0" + "requestCode : " + requestCode + "---unGrantedPermissionsList : " + unGrantedPermissionsList);
                 requestPermissions(object, requestCode, listToStringArray(unGrantedPermissionsList));
                 unGrantedPermissionsList.clear();
             } else {
+                LogUtils.INSTANCE.e("request--->等于0" + "requestCode : " + requestCode + "---unGrantedPermissionsList : " + unGrantedPermissionsList);
                 invokePermissionsGranted(object, requestCode, permissions);
             }
             unGrantedPermissionsList = null;
         } else {
-            PLog.d("request---" + "requestCode : " + requestCode + "---permissionsGranted : " + stringArrayToList(permissions));
+            LogUtils.INSTANCE.e("request---" + "requestCode : " + requestCode + "---permissionsGranted : " + stringArrayToList(permissions));
             invokePermissionsGranted(object, requestCode, permissions);
         }
     }
@@ -283,13 +285,15 @@ public class PermissionsUtil {
 
     @TargetApi(Build.VERSION_CODES.M)
     private void requestPermissions(Object object, int requestCode, String... permissions) {
-        PLog.d("requestPermissions---" + "requestCode : " + requestCode + "---requestPermissions : " + stringArrayToList(permissions));
         if (object instanceof Activity) {
             ActivityCompat.requestPermissions((Activity) object, permissions, requestCode);
+            LogUtils.INSTANCE.e("requestPermissions---Activity" + "requestCode : " + requestCode + "---requestPermissions : " + stringArrayToList(permissions));
         } else if (object instanceof Fragment) {
             ((Fragment) object).requestPermissions(permissions, requestCode);
+            LogUtils.INSTANCE.e("requestPermissions---Fragment" + "requestCode : " + requestCode + "---requestPermissions : " + stringArrayToList(permissions));
         } else if (object instanceof android.app.Fragment) {
             ((android.app.Fragment) object).requestPermissions(permissions, requestCode);
+            LogUtils.INSTANCE.e("requestPermissions---android.app.Fragment" + "requestCode : " + requestCode + "---requestPermissions : " + stringArrayToList(permissions));
         }
     }
 
@@ -300,7 +304,7 @@ public class PermissionsUtil {
      * @return
      */
     private void showAlertDialog(final Object object, final int requestCode, final String... deniedPermissions) {
-        PLog.d("showAlertDialog --- " + "requestCode : " + requestCode + "--- deniedPermissions : " + stringArrayToList(deniedPermissions));
+        LogUtils.INSTANCE.e("showAlertDialog --- " + "requestCode : " + requestCode + "--- deniedPermissions : " + stringArrayToList(deniedPermissions));
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(mObject));
         if (!TextUtils.isEmpty(mRationaleTitle)) {
             builder.setTitle(mRationaleTitle);
@@ -360,7 +364,7 @@ public class PermissionsUtil {
     }
 
     private void dealDeniedPermissions(Object object, int requestCode, String... deniedPermissions) {
-        PLog.d("dealDeniedPermissions --- " + "requestCode : " + requestCode + "--- deniedPermissions : " + stringArrayToList(deniedPermissions));
+        LogUtils.INSTANCE.e("dealDeniedPermissions --- " + "requestCode : " + requestCode + "--- deniedPermissions : " + stringArrayToList(deniedPermissions));
         Message message = mUiHandler.obtainMessage();
         Bundle bundle = new Bundle();
         bundle.putStringArray(KEY_DENIED_PERMISSIONS, deniedPermissions);
@@ -527,7 +531,7 @@ public class PermissionsUtil {
                 if (grantResults[i] != PackageManager.PERMISSION_GRANTED)
                     deniedPermissions.add(permissions[i]);
             }
-            PLog.d("onRequestPermissionsResult--- " + "requestCode : " + requestCode + "--- deniedPermissions : " + deniedPermissions);
+            LogUtils.INSTANCE.e("onRequestPermissionsResult--- " + "requestCode : " + requestCode + "--- deniedPermissions : " + deniedPermissions);
             if (deniedPermissions.size() > 0) {
                 dealDeniedPermissions(mObject, requestCode, listToStringArray(deniedPermissions));
             } else {
@@ -539,7 +543,7 @@ public class PermissionsUtil {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == SETTINGS_REQ_CODE) {
             List<String> unGrantedPermissionsList = createUnGrantedPermissionsList(mObject, mPermissions);
-            PLog.d("onActivityResult --- " + "requestCode : " + requestCode + "---" + "unGrantedPermissionsList : " + unGrantedPermissionsList);
+            LogUtils.INSTANCE.e("onActivityResult --- " + "requestCode : " + requestCode + "---" + "unGrantedPermissionsList : " + unGrantedPermissionsList);
             if (unGrantedPermissionsList.size() > 0) {
                 invokePermissionsDenied(mObject, mRequestCode, listToStringArray(unGrantedPermissionsList));
             } else {
@@ -549,7 +553,7 @@ public class PermissionsUtil {
     }
 
     private void goSetting(Object object) {
-        PLog.d("goSetting");
+        LogUtils.INSTANCE.e("goSetting");
         Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
         Uri uri = Uri.fromParts("package", getActivity(object).getPackageName(), null);
         intent.setData(uri);
@@ -559,18 +563,6 @@ public class PermissionsUtil {
             ((Fragment) object).startActivityForResult(intent, SETTINGS_REQ_CODE);
         } else if (object instanceof android.app.Fragment) {
             ((android.app.Fragment) object).startActivityForResult(intent, SETTINGS_REQ_CODE);
-        }
-    }
-
-    static final class PLog {
-        private static void d(String msg) {
-            LogUtils.INSTANCE.d(msg);
-
-            //Log.d(TAG, msg);
-        }
-
-        private static void e(String msg) {
-            LogUtils.INSTANCE.e(msg);
         }
     }
 }
